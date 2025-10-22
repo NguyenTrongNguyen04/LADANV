@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:4000/api/auth';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 
 export interface RegisterRequest {
   name: string;
@@ -62,7 +62,7 @@ class AuthService {
   }
 
   async register(userData: RegisterRequest): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/register', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
       body: JSON.stringify(userData),
     });
@@ -70,60 +70,60 @@ class AuthService {
 
   // Public verification flow (no auth cookie required)
   async sendVerifyOtpPublic(email: string): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/send-verify-otp-public', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/send-verify-otp-public`, {
       method: 'POST',
       body: JSON.stringify({ email }),
     });
   }
 
   async verifyEmailPublic(email: string, otp: string): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/verify-email-public', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/verify-email-public`, {
       method: 'POST',
       body: JSON.stringify({ email, otp }),
     });
   }
 
   async login(credentials: LoginRequest): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/login', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       body: JSON.stringify(credentials),
     });
   }
 
   async logout(): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/logout', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/logout`, {
       method: 'POST',
     });
   }
 
   async sendVerifyOtp(): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/send-verify-otp', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/send-verify-otp`, {
       method: 'POST',
     });
   }
 
   async verifyEmail(otpData: VerifyEmailRequest): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/verify-email', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/verify-email`, {
       method: 'POST',
       body: JSON.stringify(otpData),
     });
   }
 
   async isAuthenticated(): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/is-auth', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/is-auth`, {
       method: 'POST',
     });
   }
 
   async sendResetOtp(email: string): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/send-reset-otp', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/send-reset-otp`, {
       method: 'POST',
       body: JSON.stringify({ email }),
     });
   }
 
   async resetPassword(resetData: ResetPasswordRequest): Promise<ApiResponse> {
-    return this.makeRequest<ApiResponse>('/reset-password', {
+    return this.makeRequest<ApiResponse>(`${API_BASE_URL}/auth/reset-password`, {
       method: 'POST',
       body: JSON.stringify(resetData),
     });

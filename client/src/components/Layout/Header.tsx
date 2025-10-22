@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Search, User, Bell, Menu, Home, Scan, Heart, BookOpen, BarChart3, Settings, LogOut, ShoppingCart } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
- tự import logoImg from '/assets/logoOfficial.png';
+import logoImg from '/assets/logoOfficial.png';
 import { CommandPalette } from './CommandPalette';
 
 interface HeaderProps {
