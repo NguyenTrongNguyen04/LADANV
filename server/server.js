@@ -17,12 +17,7 @@ connectDB();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://ladanv-8hxns8w8x-nguyentrongnguyen04s-projects.vercel.app',
-    'https://ladanv.vercel.app',
-    /^https:\/\/.*\.vercel\.app$/
-  ],
+  origin: true, // Cho phép tất cả origins trong development
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
@@ -35,6 +30,12 @@ app.use('/api/user', userRouter)
 app.use('/api/brands', brandRouter)
 app.use('/api/products', productRouter)
 app.use('/api/admin', adminRouter)
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ success: false, message: 'Internal Server Error' });
+});
 
 // Export cho Vercel
 export default app;
