@@ -19,7 +19,9 @@ app.use(cookieParser());
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://ladanv-8hxns8w8x-nguyentrongnguyen04s-projects.vercel.app/'  // Thêm domain frontend
+    'https://ladanv-8hxns8w8x-nguyentrongnguyen04s-projects.vercel.app',
+    'https://ladanv.vercel.app',
+    /^https:\/\/.*\.vercel\.app$/
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -34,4 +36,10 @@ app.use('/api/brands', brandRouter)
 app.use('/api/products', productRouter)
 app.use('/api/admin', adminRouter)
 
-app.listen(port, ()=> console.log(`Server started on PORT:${port}`));
+// Export cho Vercel
+export default app;
+
+// Chỉ chạy server khi không phải trên Vercel
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, ()=> console.log(`Server started on PORT:${port}`));
+}
