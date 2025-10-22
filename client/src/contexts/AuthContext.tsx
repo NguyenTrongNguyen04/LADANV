@@ -36,13 +36,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const checkAuth = async () => {
     try {
       setLoading(true);
+      console.log('Checking authentication...');
       const response = await authService.isAuthenticated();
+      console.log('Auth check response:', response);
       if (response.success && response.user) {
+        console.log('User authenticated:', response.user);
         setUser(response.user);
       } else {
+        console.log('User not authenticated');
         setUser(null);
       }
     } catch (error) {
+      console.error('Auth check error:', error);
       setUser(null);
     } finally {
       setLoading(false);
@@ -61,13 +66,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (credentials: LoginRequest): Promise<ApiResponse> => {
     try {
+      console.log('Attempting login...');
       const response = await authService.login(credentials);
+      console.log('Login response:', response);
       if (response.success) {
+        console.log('Login successful, checking auth...');
         // After successful login, check auth to get user data
         await checkAuth();
       }
       return response;
     } catch (error) {
+      console.error('Login error:', error);
       throw error;
     }
   };
