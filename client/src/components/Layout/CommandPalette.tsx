@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, X, Scan, Home, Heart, BookOpen, BarChart3, User, ShoppingCart } from 'lucide-react';
+import { Search, X, Scan, Home, Heart, BookOpen, BarChart3, User, ShoppingCart, Crown } from 'lucide-react';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -18,6 +18,7 @@ export function CommandPalette({ isOpen, onClose, onNavigate }: CommandPalettePr
     { id: 'my-products', label: 'Sản phẩm của tôi', icon: Heart, description: 'Xem sản phẩm đã lưu' },
     { id: 'journal', label: 'Nhật ký da', icon: BookOpen, description: 'Ghi nhật ký chăm sóc da' },
     { id: 'analysis', label: 'Phân tích', icon: BarChart3, description: 'Xem phân tích da' },
+    { id: 'pricing', label: 'Nâng cấp', icon: Crown, description: 'Xem các gói pricing và nâng cấp' },
     { id: 'profile', label: 'Hồ sơ', icon: User, description: 'Quản lý hồ sơ cá nhân' },
   ];
 

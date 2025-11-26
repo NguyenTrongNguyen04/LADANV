@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, User, Bell, Menu, Home, Scan, Heart, BookOpen, BarChart3, Settings, LogOut, ShoppingCart } from 'lucide-react';
+import { Search, User, Bell, Menu, Home, Scan, Heart, BookOpen, BarChart3, Settings, LogOut, ShoppingCart, Crown } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import logoImg from '/assets/logoOfficial.png';
 import { CommandPalette } from './CommandPalette';
@@ -25,6 +25,7 @@ export function Header({ onAuthClick, onMenuClick, activeView, onViewChange }: H
     { id: 'my-products', label: 'Sản phẩm của tôi', icon: Heart },
     { id: 'journal', label: 'Nhật ký da', icon: BookOpen },
     { id: 'analysis', label: 'Phân tích', icon: BarChart3 },
+    { id: 'pricing', label: 'Nâng cấp', icon: Crown },
     { id: 'profile', label: 'Hồ sơ', icon: User },
   ];
 

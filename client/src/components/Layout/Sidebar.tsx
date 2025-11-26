@@ -1,4 +1,4 @@
-import { Home, Scan, Heart, BookOpen, User, BarChart3, X, ShoppingCart } from 'lucide-react';
+import { Home, Scan, Heart, BookOpen, User, BarChart3, X, ShoppingCart, Crown } from 'lucide-react';
 
 interface SidebarProps {
   activeView: string;
@@ -15,6 +15,7 @@ export function Sidebar({ activeView, onViewChange, isOpen, onClose }: SidebarPr
     { id: 'my-products', label: 'Sản phẩm của tôi', icon: Heart },
     { id: 'journal', label: 'Nhật ký da', icon: BookOpen },
     { id: 'analysis', label: 'Phân tích', icon: BarChart3 },
+    { id: 'pricing', label: 'Nâng cấp', icon: Crown },
     { id: 'profile', label: 'Hồ sơ', icon: User },
   ];
 

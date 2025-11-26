@@ -17,9 +17,11 @@ import {
   AlertCircle,
   LogOut,
   User,
-  Shield
+  Shield,
+  Wallet
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
+import { RevenueDashboard } from './RevenueDashboard';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 
@@ -68,7 +70,7 @@ interface Product {
 
 export function AdminDashboard() {
   const { admin, logout } = useAdmin();
-  const [activeTab, setActiveTab] = useState<'brands' | 'products'>('brands');
+  const [activeTab, setActiveTab] = useState<'brands' | 'products' | 'revenue'>('brands');
   const [brands, setBrands] = useState<Brand[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
@@ -568,6 +570,17 @@ export function AdminDashboard() {
                 <Package className="w-4 h-4 inline mr-2" />
                 Sản phẩm ({products.length})
               </button>
+              <button
+                onClick={() => setActiveTab('revenue')}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === 'revenue'
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <Wallet className="w-4 h-4 inline mr-2" />
+                Doanh thu
+              </button>
             </nav>
           </div>
         </div>
@@ -742,6 +755,10 @@ export function AdminDashboard() {
               ))}
             </div>
           </div>
+        )}
+
+        {activeTab === 'revenue' && (
+          <RevenueDashboard />
         )}
 
         {/* Brand Form Modal */}

@@ -12,6 +12,8 @@ import { AnalysisPage } from './components/Analysis/AnalysisPage';
 import { GeminiTestPage } from './components/Test/GeminiTestPage';
 import { AdminWrapper } from './components/Admin/AdminWrapper';
 import { MarketPage } from './components/Market/MarketPage';
+import { PricingPage } from './components/Pricing/PricingPage';
+import { PaymentPage } from './components/Payment/PaymentPage';
 
 function AppContent() {
   const [activeView, setActiveView] = useState('home');
@@ -29,8 +31,12 @@ function AppContent() {
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname.slice(1) || 'home';
-      const validViews = ['home', 'scan', 'profile', 'journal', 'my-products', 'analysis', 'gemini-test', 'admin', 'market'];
-      if (validViews.includes(path)) {
+      const validViews = ['home', 'scan', 'profile', 'journal', 'my-products', 'analysis', 'gemini-test', 'admin', 'market', 'pricing'];
+      
+      // Check for payment route
+      if (path.startsWith('payment/')) {
+        setActiveView(path);
+      } else if (validViews.includes(path)) {
         setActiveView(path);
       }
     };
@@ -39,8 +45,12 @@ function AppContent() {
     
     // Set initial view from URL
     const path = window.location.pathname.slice(1) || 'home';
-    const validViews = ['home', 'scan', 'profile', 'journal', 'my-products', 'analysis', 'gemini-test', 'admin', 'market'];
-    if (validViews.includes(path)) {
+    const validViews = ['home', 'scan', 'profile', 'journal', 'my-products', 'analysis', 'gemini-test', 'admin', 'market', 'pricing'];
+    
+    // Check for payment route
+    if (path.startsWith('payment/')) {
+      setActiveView(path);
+    } else if (validViews.includes(path)) {
       setActiveView(path);
     }
 
@@ -63,7 +73,9 @@ function AppContent() {
     setActiveView(view);
     
     // Update browser URL without page reload
-    window.history.pushState({}, '', `/${view === 'home' ? '' : view}`);
+    // Nếu view chứa query params, giữ nguyên
+    const urlPath = view === 'home' ? '' : view;
+    window.history.pushState({}, '', `/${urlPath}`);
   };
 
   if (loading) {
@@ -104,6 +116,25 @@ function AppContent() {
           {activeView === 'gemini-test' && <GeminiTestPage />}
           {activeView === 'admin' && <AdminWrapper />}
           {activeView === 'market' && <MarketPage />}
+          {activeView === 'pricing' && <PricingPage onNavigate={handleViewChange} />}
+          {activeView.startsWith('payment/') && (() => {
+            // Parse từ URL thực tế
+            const path = window.location.pathname.slice(1); // Bỏ dấu /
+            const match = path.match(/payment\/([^?]+)/);
+            const orderInvoiceNumber = match ? match[1] : '';
+            const urlParams = new URLSearchParams(window.location.search);
+            const planId = urlParams.get('planId') || '';
+            
+            if (!orderInvoiceNumber) {
+              return (
+                <div className="min-h-screen flex items-center justify-center">
+                  <p className="text-red-600">Không tìm thấy mã đơn hàng</p>
+                </div>
+              );
+            }
+            
+            return <PaymentPage orderInvoiceNumber={orderInvoiceNumber} planId={planId} onNavigate={handleViewChange} />;
+          })()}
         </main>
       </div>
 

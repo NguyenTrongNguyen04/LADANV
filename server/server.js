@@ -9,6 +9,8 @@ import userRouter from "./routes/userRoutes.js";
 import brandRouter from "./routes/brandRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
+import subscriptionRouter from "./routes/subscriptionRoutes.js";
+import paymentRouter from "./routes/paymentRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 4000
@@ -30,6 +32,8 @@ app.use('/api/user', userRouter)
 app.use('/api/brands', brandRouter)
 app.use('/api/products', productRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/subscription', subscriptionRouter)
+app.use('/api/payment', paymentRouter)
 
 // Error handling middleware
 app.use((err, req, res, next) => {

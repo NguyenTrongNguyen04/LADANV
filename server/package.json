@@ -9,7 +9,10 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "create-super-admin": "node scripts/createSuperAdminUser.js"
+    "create-super-admin": "node scripts/createSuperAdminUser.js",
+    "import-brands": "node scripts/importBrandsFromHasaki.js",
+    "import-products": "node scripts/importProductsFromHasaki.js",
+    "seed-pricing": "node scripts/seedPricingPlans.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -20,6 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.0",
     "nodemailer": "^7.0.6",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "sepay-pg-node": "^1.0.0"
   }
 }
