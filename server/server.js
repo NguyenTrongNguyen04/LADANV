@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
 // Export cho Vercel
 export default app;
 
-// Chỉ chạy server khi không phải trên Vercel
-if (process.env.NODE_ENV !== 'production') {
+// Chỉ chạy server khi không phải môi trường serverless (Vercel)
+if (!process.env.VERCEL) {
   app.listen(port, ()=> console.log(`Server started on PORT:${port}`));
 }
