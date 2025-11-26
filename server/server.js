@@ -13,6 +13,7 @@ import subscriptionRouter from "./routes/subscriptionRoutes.js";
 import paymentRouter from "./routes/paymentRoutes.js";
 
 const app = express();
+app.set('trust proxy', 1);
 const port = process.env.PORT || 4000
 connectDB();
 
