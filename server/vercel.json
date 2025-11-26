@@ -1,14 +1,15 @@
 {
-  "projects": [
+  "version": 2,
+  "builds": [
     {
-      "name": "ladanv-api",
-      "rootDirectory": "server",
-      "builds": [
-        { "src": "vercel.js", "use": "@vercel/node" }
-      ],
-      "routes": [
-        { "src": "/api/(.*)", "dest": "vercel.js" }
-      ]
+      "src": "vercel.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "vercel.js"
     }
   ]
 }
