@@ -17,9 +17,17 @@ app.set('trust proxy', 1);
 const port = process.env.PORT || 4000
 connectDB();
 
-const allowedOrigins = (process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : ['http://localhost:5173']).map(o => o.trim());
+const defaultOrigins = ['http://localhost:5173', 'https://ladanv.vercel.app'];
+const allowedOrigins = (process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : defaultOrigins).map(o => o.trim());
+
 const corsOptions = {
-  origin: allowedOrigins,
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
